@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Form-Image preview</title>
+    <title>Form-Input preview</title>
     <style>
       body {
-        background-color: bisque; /* Sets the background color to bisque */
+        background-color: bisque; 
       }
 
       img {
         width: 200px;
-        border-radius: 10px; /* Rounds all borders */
+        border-radius: 10px; 
       }
 
       .inputContainer {
@@ -47,30 +47,27 @@
     
     <script>
         document.getElementById('form').addEventListener('submit', (e) => {
-            e.preventDefault();
+            e.preventDefault(); //Prevent default form submission
         })
-        document.getElementById('formImage').addEventListener('change', (e)=> {
+        document.getElementById('formImage').addEventListener('change', (e)=> { //Listen for when there's change to image
         const imagePreview = document.getElementById('formImagePreview');
-        const defaultImage = document.getElementById('formImage').value;
+        const defaultImage = document.getElementById('formImage').value; //Collect image value
 
-        if (e.target.files && e.target.files[0]) {
-            const reader = new FileReader();
+        if (e.target.files && e.target.files[0]) { //Check if image exists
+            const reader = new FileReader(); //Initialize file reader to access local storage
             reader.onload = function(e) {
-            imagePreview.src = e.target.result;
+            imagePreview.src = e.target.result; //Set image preview 
             }
             reader.readAsDataURL(e.target.files[0]);
         } else {
-            imagePreview.src = defaultImage;
+            imagePreview.src = defaultImage; //Set image preview
         }
         });
 
-        document.getElementById('formName').addEventListener('change', (e) => {
-            const actualName = document.getElementById('formName').value;
-
-            console.log(actualName)
-
+        document.getElementById('formName').addEventListener('change', (e) => { //Listen for changes to name input
+            const actualName = document.getElementById('formName').value;  //Extract input value from user
             const namePreview = document.getElementById('namePreview');
-            namePreview.textContent = actualName;
+            namePreview.textContent = actualName; //Show name
         })
     </script>
   </body>
