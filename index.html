@@ -4,13 +4,74 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Form-Image preview</title>
+    <style>
+      body {
+        background-color: bisque; /* Sets the background color to bisque */
+      }
+
+      img {
+        width: 200px;
+        border-radius: 10px; /* Rounds all borders */
+      }
+
+      .inputContainer {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
   </head>
   <body>
-    <form>
-      <label for="formImage">Profile Image</label>
-      <input type="file" name="formImage" id="formImage" />
-      <input type="hidden" name="formImagePreview" id="formImagePreview" />
+    <form id="form">
+      <div class="inputContainer">
+        <div>
+            <label for="formImage">Profile Image: <br /></label>
+            <input type="file" name="formImage" id="formImage" />
+        </div>
+        <div class="Preview">
+            <img src="" id="formImagePreview" />
+        </div>
+      </div>
+      <div class="inputContainer">
+        <div>
+            <label for="formName">Username</label>
+            <input type="text" name="formName" id="formName" />
+        </div>
+        <div class="Preview">
+            <span id="namePreview"></span>
+        </div>
+      </div>
+
+      <button id="formButton">Save</button>
     </form>
 
+    
+    <script>
+        document.getElementById('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+        })
+        document.getElementById('formImage').addEventListener('change', (e)=> {
+        const imagePreview = document.getElementById('formImagePreview');
+        const defaultImage = document.getElementById('formImage').value;
+
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        } else {
+            imagePreview.src = defaultImage;
+        }
+        });
+
+        document.getElementById('formName').addEventListener('change', (e) => {
+            const actualName = document.getElementById('formName').value;
+
+            console.log(actualName)
+
+            const namePreview = document.getElementById('namePreview');
+            namePreview.textContent = actualName;
+        })
+    </script>
   </body>
 </html>
